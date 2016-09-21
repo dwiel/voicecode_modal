@@ -2,7 +2,7 @@ $(function() {
     // keep focus on input default to input on scratch
     var timeout;
     var default_focus = '#phrase';
-    var allowed_focus = 'input';
+    var allowed_focus = 'input button';
 
     $(default_focus).focus();
     $(allowed_focus).blur(function() {
@@ -34,7 +34,7 @@ $(function() {
     }
 
     $('#complete').click(function() {
-        $.post('/create_command', {
+        $.post('/extend_command', {
             'script': $('#script').text()
         })
     })
