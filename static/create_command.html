@@ -2,12 +2,14 @@
     <head>
         <script src="jquery-3.1.0.min.js" type="text/javascript"> </script>
         <script src="handlebars-v4.0.5.js" type="text/javascript"> </script>
-        <script src="extend_command.js" type="text/javascript"> </script>
+        <script src="create_command.js" type="text/javascript"> </script>
     </head>
     <body>
         <input id="scratch" type="text" /><br/>
         <br/>
         Phrase: <input id="phrase" type="text" /><br/>
+        Description: <input id="description" type="text" /><br/>
+        Grammar Type: <input id="grammar_type" type="text" /><br/>
         String: <input id="string" type="text" /><br/>
         Code: <textarea id="code" type="text" rows="6" cols="80"></textarea><br/>
         Context: <input id="context" type="text" /><br/>
@@ -19,14 +21,17 @@
     </body>
 
 <script id="script_template" type="text/x-handlebars-template">
-Commands.extend "{{phrase}}", ->
-  if @currentApplication() is "{{context}}"
-    {{#if code}}
-    {{code}}
-    {{else}}
-    @string "{{string}}"
-    {{/if}}
-    @stop()
+Commands.create "{{phrase}}",
+  grammarType: "{{grammar_type}}"
+  description: "{{description}}"
+  action: (input) ->
+    {{#if context}}if @currentApplication() is "{{context}}"{{/if}}
+      {{#if code}}
+      {{code}}
+      {{else}}
+      @string "{{string}}"
+      {{/if}}
+      @stop()
 </script>
 
 </html>

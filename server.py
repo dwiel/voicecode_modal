@@ -9,7 +9,7 @@ app.debug = True
 
 BASE_DIRECTORY = '/Users/zdwiel/voicecode/commando/config/'
 
-@app.route('/extend_command', methods = ['POST'])
+@app.route('/create_command', methods = ['POST'])
 def extend_command():
     script = request.form['script']
     filename = BASE_DIRECTORY + str(random.random()) + '.coffee'

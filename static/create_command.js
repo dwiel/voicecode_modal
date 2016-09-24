@@ -15,9 +15,11 @@ $(function() {
     })
 
     // update script whenever inputs change
-    $("input, textarea").on('change keydown paste input', function () {
+    $("input, textarea").on('change keydown paste input', function() {
         update_script(generate_script({
             'phrase': $('#phrase').val(),
+            'description': $('#description').val(),
+            'grammar_type': $('#grammar_type').val(),
             'string': $('#string').val(),
             'code': $('#code').val(),
             'context': $('#context').val(),
@@ -35,7 +37,7 @@ $(function() {
     }
 
     $('#complete').click(function() {
-        $.post('/extend_command', {
+        $.post('/create_command', {
             'script': $('#script').text()
         })
     })
