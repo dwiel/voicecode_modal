@@ -14,19 +14,17 @@ $(function() {
         clearTimeout(timeout);
     })
 
-    // update script whenever inputs change
-    $("input, textarea").on('change keydown paste input', function() {
-        update_script(generate_script({
+    function update_script() {
+        set_script(generate_script({
             'phrase': $('#phrase').val(),
             'description': $('#description').val(),
-            'grammar_type': $('#grammar_type').val(),
             'string': $('#string').val(),
             'code': $('#code').val(),
             'context': $('#context').val(),
         }));
-    });
+    }
 
-    function update_script(script) {
+    function set_script(script) {
         // the value of script element on page
         $('#script').html(script);
     }
@@ -35,6 +33,10 @@ $(function() {
         // generate coffee script command given a set of params
         return Handlebars.compile($('#script_template').html())(params);
     }
+
+    // update script whenever inputs change
+    $("input, textarea").on('change keydown paste input', update_script);
+    $().ready(update_script);
 
     $('#complete').click(function() {
         $.post('/create_command', {

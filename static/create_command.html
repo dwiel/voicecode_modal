@@ -9,7 +9,6 @@
         <br/>
         Phrase: <input id="phrase" type="text" /><br/>
         Description: <input id="description" type="text" /><br/>
-        Grammar Type: <input id="grammar_type" type="text" /><br/>
         String: <input id="string" type="text" /><br/>
         Code: <textarea id="code" type="text" rows="6" cols="80"></textarea><br/>
         Context: <input id="context" type="text" /><br/>
@@ -21,17 +20,21 @@
     </body>
 
 <script id="script_template" type="text/x-handlebars-template">
-Commands.create "{{phrase}}",
-  grammarType: "{{grammar_type}}"
-  description: "{{description}}"
-  action: (input) ->
-    {{#if context}}if @currentApplication() is "{{context}}"{{/if}}
+pack = Packages.register
+  name: "{{phrase}}"{{#if context}}
+  applications: ["{{context}}"]{{/if}}
+  description: "automatically generated package for {{phrase}}"
+
+pack.commands
+  "{{phrase}}":
+    spoken: "{{phrase}}"
+    description: "{{description}}"
+    action: (input) ->
       {{#if code}}
       {{code}}
       {{else}}
       @string "{{string}}"
       {{/if}}
-      @stop()
 </script>
 
 </html>
