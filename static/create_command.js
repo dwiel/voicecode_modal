@@ -1,7 +1,10 @@
 $(function() {
+    // set window to reasonable default size
+    window.resizeTo(530, 600);
+
     // keep focus on input default to input on scratch
     var timeout;
-    var default_focus = '#phrase';
+    var default_focus = '#package';
     var allowed_focus = 'input button';
 
     $(default_focus).focus();
@@ -16,11 +19,12 @@ $(function() {
 
     function update_script() {
         set_script(generate_script({
-            'phrase': $('#phrase').val(),
+            'implement': $('#implement').val(),
+            'spoken': $('#spoken').val(),
             'description': $('#description').val(),
+            'enabled': $('#enabled').val(),
             'string': $('#string').val(),
             'code': $('#code').val(),
-            'context': $('#context').val(),
         }));
     }
 
@@ -40,7 +44,15 @@ $(function() {
 
     $('#complete').click(function() {
         $.post('/create_command', {
-            'script': $('#script').text()
+            'script': $('#script').text(),
+            'package': $('#package').val(),
         })
-    })
+    });
+
+    $(document).keyup(function(e) {
+        // escape key maps to keycode `27`
+        if (e.keyCode == 27) {
+            window.close();
+        }
+    });
 });

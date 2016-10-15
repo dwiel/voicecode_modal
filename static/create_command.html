@@ -7,11 +7,15 @@
     <body>
         <input id="scratch" type="text" /><br/>
         <br/>
-        Phrase: <input id="phrase" type="text" /><br/>
+        Package: <input id="package" type="text" /><br/>
+        <br/>
+        Implement: <input id="implement" type="text" /><br/>
+        Spoken: <input id="spoken" type="text" /><br/>
+        <br/>
         Description: <input id="description" type="text" /><br/>
+        Enabled: <input id="enabled" type="text" /><br/>
         String: <input id="string" type="text" /><br/>
         Code: <textarea id="code" type="text" rows="6" cols="80"></textarea><br/>
-        Context: <input id="context" type="text" /><br/>
         <br/>
         <button id="complete">Complete</button>
 
@@ -20,14 +24,18 @@
     </body>
 
 <script id="script_template" type="text/x-handlebars-template">
-pack = Packages.register
-  name: "{{phrase}}"{{#if context}}
-  applications: ["{{context}}"]{{/if}}
-  description: "automatically generated package for {{phrase}}"
-
+{{#if implement}}
+pack.implement
+  "{{implement}}": ->
+    {{#if code}}
+    {{code}}
+    {{else}}
+    @string "{{string}}"
+    {{/if}}
+{{else}}
 pack.commands
-  "{{phrase}}":
-    spoken: "{{phrase}}"
+  "{{spoken}}":
+    spoken: "{{spoken}}"
     description: "{{description}}"
     action: (input) ->
       {{#if code}}
@@ -35,6 +43,7 @@ pack.commands
       {{else}}
       @string "{{string}}"
       {{/if}}
+{{/if}}
 </script>
 
 </html>
