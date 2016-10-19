@@ -1,6 +1,6 @@
 $(function() {
     // set window to reasonable default size
-    window.resizeTo(530, 600);
+    window.resizeTo(530, 800);
 
     // keep focus on input default to input on scratch
     var timeout;
@@ -23,6 +23,7 @@ $(function() {
             'spoken': $('#spoken').val(),
             'description': $('#description').val(),
             'enabled': $('#enabled').val(),
+            'continuous': $('#continuous').val(),
             'string': $('#string').val(),
             'code': $('#code').val(),
         }));
